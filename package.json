@@ -1,0 +1,25 @@
+{
+  "name": "@advanced-rest-client/arc-electron-helpers",
+  "version": "1.0.0-rc1",
+  "description": "ARC electron helper libraries",
+  "main": "renderer/index.js",
+  "scripts": {
+    "test": "electron-mocha --renderer test/*.renderer.test.js"
+  },
+  "author": "Pawel Psztyc",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "electron": "^2.0.7",
+    "electron-mocha": "^6.0.4",
+    "mocha": "^4.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/advanced-rest-client/arc-electron-helpers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/advanced-rest-client/arc-electron-helpers/issues",
+    "email": "arc@mulesoft.com"
+  }
+}
