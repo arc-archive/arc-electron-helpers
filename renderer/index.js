@@ -1,1 +1,1 @@
-exports.ArcHeaders = require('./arc-headers').ArcHeaders;
+export { ArcHeaders } from './ArcHeaders.js';

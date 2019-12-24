@@ -2,17 +2,29 @@
   "name": "@advanced-rest-client/arc-electron-helpers",
   "version": "1.0.0",
   "description": "ARC electron helper libraries",
-  "main": "renderer/index.js",
+  "main": "main.js",
+  "module": "index.js",
   "scripts": {
     "test": "electron-mocha --renderer test/*.renderer.test.js"
   },
   "author": "Pawel Psztyc",
   "license": "Apache-2.0",
+  "dependencies": {
+    "esm": "^3.2.25"
+  },
   "devDependencies": {
-    "chai": "^4.1.2",
-    "electron": "^4.0.2",
-    "electron-mocha": "^6.0.4",
-    "mocha": "^4.1.0"
+    "chai": "^4.2.0",
+    "electron-mocha": "^8.1.2",
+    "mocha": "^6.2.2",
+    "@advanced-rest-client/eslint-config": "^1.1.4",
+    "@advanced-rest-client/prettier-config": "^0.1.0",
+    "eslint": "^6.8.0",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "lint-staged": "^9.5.0"
+  },
+  "peerDependencies": {
+    "electron": "^7.1.7"
   },
   "repository": {
     "type": "git",

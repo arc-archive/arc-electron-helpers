@@ -1,4 +1,3 @@
-/* global Headers */
 /**
  * Normalizes name of a header.
  * @param {String} name
@@ -56,7 +55,7 @@ function* headersStringToList(string) {
  * ARC version of headers interface.
  * It supports ARC API.
  */
-class ArcHeaders {
+export class ArcHeaders {
   constructor(headers) {
     this.map = {};
     if (headers instanceof ArcHeaders || headers instanceof Headers) {
@@ -116,7 +115,7 @@ class ArcHeaders {
    * @return {Boolean}
    */
   has(name) {
-    return this.map.hasOwnProperty(normalizeName(name));
+    return {}.hasOwnProperty.call(this.map, normalizeName(name));
   }
   /**
    * Creates new header. If header existed it replaces it's value.
@@ -132,8 +131,8 @@ class ArcHeaders {
   }
 
   forEach(callback, thisArg) {
-    for (let name in this.map) {
-      if (this.map.hasOwnProperty(name)) {
+    for (const name in this.map) {
+      if ({}.hasOwnProperty.call(this.map, name)) {
         callback.call(thisArg, this.map[name].value, this.map[name].name, this);
       }
     }
@@ -152,36 +151,34 @@ class ArcHeaders {
   }
 
   * keys() {
-    for (let name in this.map) {
-      if (this.map.hasOwnProperty(name)) {
+    for (const name in this.map) {
+      if ({}.hasOwnProperty.call(this.map, name)) {
         yield this.map[name].name;
       }
     }
   }
 
   * values() {
-    for (let name in this.map) {
-      if (this.map.hasOwnProperty(name)) {
+    for (const name in this.map) {
+      if ({}.hasOwnProperty.call(this.map, name)) {
         yield this.map[name].value;
       }
     }
   }
 
   * entries() {
-    for (let name in this.map) {
-      if (this.map.hasOwnProperty(name)) {
+    for (const name in this.map) {
+      if ({}.hasOwnProperty.call(this.map, name)) {
         yield [this.map[name].name, this.map[name].value];
       }
     }
   }
 
   * [Symbol.iterator]() {
-    for (let name in this.map) {
-      if (this.map.hasOwnProperty(name)) {
+    for (const name in this.map) {
+      if ({}.hasOwnProperty.call(this.map, name)) {
         yield [this.map[name].name, this.map[name].value];
       }
     }
   }
 }
-
-module.exports.ArcHeaders = ArcHeaders;
