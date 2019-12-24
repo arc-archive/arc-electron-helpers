@@ -1,6 +1,6 @@
 {
   "name": "@advanced-rest-client/arc-electron-helpers",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "ARC electron helper libraries",
   "main": "main.js",
   "module": "index.js",
