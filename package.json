@@ -1,6 +1,6 @@
 {
   "name": "@advanced-rest-client/arc-electron-helpers",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "ARC electron helper libraries",
   "main": "main.js",
   "module": "index.js",
@@ -21,7 +21,8 @@
     "eslint": "^6.8.0",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "lint-staged": "^9.5.0"
+    "lint-staged": "^9.5.0",
+    "husky": "^3.1.0"
   },
   "peerDependencies": {
     "electron": "^7.1.7"
@@ -33,5 +34,11 @@
   "bugs": {
     "url": "https://github.com/advanced-rest-client/arc-electron-helpers/issues",
     "email": "arc@mulesoft.com"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
