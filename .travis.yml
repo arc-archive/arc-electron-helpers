@@ -3,12 +3,16 @@ node_js: 8
 addons:
   apt:
     packages:
-      - xvfb
+    - xvfb
 before_script:
-  - export DISPLAY=':99.0'
-  - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+- export DISPLAY=':99.0'
+- Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 install:
-  - npm ci
-  - npm i --no-save electron
+- npm ci
+- npm i --no-save electron
 script:
-  - npm test
+- npm test
+env:
+  global:
+  - secure: VAvAob7d8fSHsbjSB5pWSWw5mlb/EGruvgsf0ys1lspZTTy5eoNe8Sn9feYacYCRy5dChx9yQiZ6VXoKzBdeVyo0WMhrd3ky3ZEfR/EuutGe0UX0RxP98n3IKgf0Wycpf7XsCF3jG+3wIOhzAplKsU0tMTfI7D/x5Wjjbo2wEoVHDjzbAZ6ce9cM1i2+FTqoKGue1fq3xgSJjnwrKphAl4iiB2T1A9V9xTcK34UHZd5suvj2i/88zYO1NwRvYUIIJPLS558fVVbi8PX0SFBKUcBNSkDEWjKM/Bh4EJAhhP4LuqownLsq8D9pSXnqsJgd8UZaTxnJbZRKBpA9vYSU3sua/g+HCXeElHJyBbFSM1bh1MYSdnpXXIXOcsg8XQMAAuQ5hdnRD7qrX2iBS8sY1ZlcRSnKrROX5e2Tde5nkaTaCqAGW72ILENY6MAJx2tIoX5bJiJtyqFuiQ/fv3DHjBI+Jdwa4ZdmrKaSHT7KAK8fSznmfPN8OL2wHVtCDBbyyzE0aCxhaR5El/6y3OWe2mZX5gWiHA40pd/bZm/2lE4tIhEzGkmTak3PKIuLMxTm8ogSHZntnVGMvsjpTthfdZhQj/H6qAlHA6SSZj0c7XAtVddevqijFF7bh72zfaLOGoXGXSuq1QZThooqhWTNmx2jSdwVsDkWoiImL0GLkvs=
+  - secure: tnTUyXPzaZdCJElOJI+AE6HDh+lPed6cSLlGayWF+HImh49R6W7vDMywCVpu3V4F+beU8dMdu2ZR4W4IH9bmZUbWy0aHjvJbTeSZdWM6/USO6EiaTYaEcSVA2U+gnySMYny7RQaGbFP+QhBw/NmRWw3pPWPePqLoKmimi0izPMERUI+oTbT/8mFnNAwCbEXr9MUr4stHIUEOtSFUODYAJQHIBQHf8tMm43eOrIKAyoRY41Tfem1jZUFNnG35iL5P7uJksE9UdBQNvB+j4Wxem5C26CP28pdUaxou+g7gpyW2w8LD5H5TN+6LEOOTrmiK0VCAMSNfBCMFaFnCGJwZhNbU3uWTy7O+0lHBUtIY/Wjxa0hTUGcO2ZsdU+7enlJdiuXZtGqxyY0oGDIonkqv72ZZ3JVnGfxQeVBkk+D0k1hY6KsRA55WjB5NHJiWOi8SZJUIj0NkVU31tJhElQ6x6Zk7JzoMrM7DdL7jpqY2TLTE+fIdBOBJw18lfU6LrmEBESks5BNyqy3/WH2nQW+RiEJB70mHxctwZzr7wZeoLL0fmUlMlDnOW08QHgbbnoNPytCZ1hftabFeeCeG5EBj/Gc+zgc4dSatF1joSRrEknPewPWhd+m3lNCFZhgk9LT7BE2XzoTuBCDnOLf4CkZDR9+2QYk6CdkEfCyC6kA9h1U=
