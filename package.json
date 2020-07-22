@@ -1,6 +1,6 @@
 {
   "name": "@advanced-rest-client/arc-electron-helpers",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "ARC electron helper libraries",
   "main": "main.js",
   "module": "index.js",
@@ -13,7 +13,7 @@
     "esm": "^3.2.25"
   },
   "devDependencies": {
-    "@commitlint/cli": "^9.1.1",
+    "@commitlint/cli": "^9.1.2",
     "@commitlint/config-conventional": "^9.1.1",
     "@types/chai": "^4.2.11",
     "@types/chance": "^1.1.0",
