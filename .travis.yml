@@ -1,5 +1,5 @@
 language: node_js
-node_js: 8
+node_js: stable
 addons:
   apt:
     packages:
@@ -7,9 +7,6 @@ addons:
 before_script:
 - export DISPLAY=':99.0'
 - Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-install:
-- npm ci
-- npm i --no-save electron
 script:
 - npm test
 env:

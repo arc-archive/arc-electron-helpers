@@ -1,18 +1,18 @@
 /**
  * Normalizes name of a header.
- * @param {String} name
- * @return {String} Normalized name
+ * @param {string} headerName
+ * @return {string} Normalized name
  */
-function normalizeName(name) {
-  if (typeof name !== 'string') {
-    name = String(name);
+function normalizeName(headerName) {
+  if (typeof headerName !== 'string') {
+    headerName = String(headerName);
   }
-  return name.toLowerCase();
+  return headerName.toLowerCase();
 }
 /**
  * Normalizes value of a header.
- * @param {String} value
- * @return {String} Normalized name
+ * @param {string} value
+ * @return {string} Normalized name
  */
 function normalizeValue(value) {
   if (typeof value !== 'string') {
@@ -28,8 +28,8 @@ function normalizeValue(value) {
  *  ...
  * }
  * ```
- * @param {[type]} string [description]
- * @return {Generator} [description]
+ * @param {[type]} string
+ * @return {Generator}
  */
 function* headersStringToList(string) {
   if (!string || string.trim() === '') {
@@ -45,9 +45,9 @@ function* headersStringToList(string) {
     if (sepPosition === -1) {
       yield [line, ''];
     } else {
-      const name = line.substr(0, sepPosition);
+      const headerName = line.substr(0, sepPosition);
       const value = line.substr(sepPosition + 1).trim();
-      yield [name, value];
+      yield [headerName, value];
     }
   }
 }
@@ -56,10 +56,13 @@ function* headersStringToList(string) {
  * It supports ARC API.
  */
 export class ArcHeaders {
+  /**
+   * @param {ArcHeaders|Headers|string|object|object[]} headers
+   */
   constructor(headers) {
     this.map = {};
     if (headers instanceof ArcHeaders || headers instanceof Headers) {
-      headers.forEach((value, name) => this.append(name, value));
+      headers.forEach((value, headerName) => this.append(headerName, value));
     } else if (Array.isArray(headers)) {
       headers.forEach((header) => this.append(header[0], header[1]));
     } else if (typeof headers === 'string') {
@@ -70,78 +73,90 @@ export class ArcHeaders {
         result = iterator.next();
       }
     } else if (headers) {
-      Object.keys(headers).forEach((name) => this.append(name, headers[name]));
+      Object.keys(headers).forEach((headerName) => this.append(headerName, headers[headerName]));
     }
   }
+
   /**
    * Adds value to existing header or creates new header
-   * @param {String} name
-   * @param {String} value
+   * @param {string} headerName
+   * @param {string} value
    */
-  append(name, value) {
-    const normalizedName = normalizeName(name);
+  append(headerName, value) {
+    const normalizedName = normalizeName(headerName);
     value = normalizeValue(value);
     let item = this.map[normalizedName];
     if (item) {
       const oldValue = item.value;
-      item.value = oldValue ? oldValue + ',' + value : value;
+      item.value = oldValue ? `${oldValue },${ value}` : value;
     } else {
       item = {
-        name: name,
-        value
+        name: headerName,
+        value,
       };
     }
     this.map[normalizedName] = item;
   }
+
   /**
    * Removes a header from the list of headers.
-   * @param {String} name Header name
+   * @param {String} headerName Header name
    */
-  delete(name) {
-    delete this.map[normalizeName(name)];
+  delete(headerName) {
+    delete this.map[normalizeName(headerName)];
   }
+
   /**
    * Returns current value of the header
-   * @param {String} name Header name
-   * @return {String|undefined}
+   * @param {string} headerName Header name
+   * @return {string|undefined}
    */
-  get(name) {
-    name = normalizeName(name);
-    return this.has(name) ? this.map[name].value : undefined;
+  get(headerName) {
+    const normalizedName = normalizeName(headerName);
+    return this.has(headerName) ? this.map[normalizedName].value : undefined;
   }
+
   /**
    * Checks if header exists.
-   * @param {String} name
-   * @return {Boolean}
+   * @param {string} headerName
+   * @return {boolean}
    */
-  has(name) {
-    return {}.hasOwnProperty.call(this.map, normalizeName(name));
+  has(headerName) {
+    return {}.hasOwnProperty.call(this.map, normalizeName(headerName));
   }
+
   /**
    * Creates new header. If header existed it replaces it's value.
-   * @param {String} name
+   * @param {String} headerName
    * @param {String} value
    */
-  set(name, value) {
-    const normalizedName = normalizeName(name);
+  set(headerName, value) {
+    const normalizedName = normalizeName(headerName);
     this.map[normalizedName] = {
       value: normalizeValue(value),
-      name: name
+      name: headerName,
     };
   }
 
+  /**
+   * @param {Function} callback
+   * @param {any=} thisArg
+   */
   forEach(callback, thisArg) {
-    for (const name in this.map) {
-      if ({}.hasOwnProperty.call(this.map, name)) {
-        callback.call(thisArg, this.map[name].value, this.map[name].name, this);
+    for (const hname in this.map) {
+      if ({}.hasOwnProperty.call(this.map, hname)) {
+        callback.call(thisArg, this.map[hname].value, this.map[hname].name, this);
       }
     }
   }
 
+  /**
+   * @return {string} The entire headers list into a header string
+   */
   toString() {
     const result = [];
-    this.forEach((value, name) => {
-      let tmp = name + ': ';
+    this.forEach((value, hname) => {
+      let tmp = `${hname}: `;
       if (value) {
         tmp += value;
       }
@@ -150,34 +165,42 @@ export class ArcHeaders {
     return result.join('\n');
   }
 
+  /**
+   */
   * keys() {
-    for (const name in this.map) {
-      if ({}.hasOwnProperty.call(this.map, name)) {
-        yield this.map[name].name;
+    for (const hname in this.map) {
+      if ({}.hasOwnProperty.call(this.map, hname)) {
+        yield this.map[hname].name;
       }
     }
   }
 
+  /**
+   */
   * values() {
-    for (const name in this.map) {
-      if ({}.hasOwnProperty.call(this.map, name)) {
-        yield this.map[name].value;
+    for (const hname in this.map) {
+      if ({}.hasOwnProperty.call(this.map, hname)) {
+        yield this.map[hname].value;
       }
     }
   }
 
+  /**
+   */
   * entries() {
-    for (const name in this.map) {
-      if ({}.hasOwnProperty.call(this.map, name)) {
-        yield [this.map[name].name, this.map[name].value];
+    for (const hname in this.map) {
+      if ({}.hasOwnProperty.call(this.map, hname)) {
+        yield [this.map[hname].name, this.map[hname].value];
       }
     }
   }
 
+  /**
+   */
   * [Symbol.iterator]() {
-    for (const name in this.map) {
-      if ({}.hasOwnProperty.call(this.map, name)) {
-        yield [this.map[name].name, this.map[name].value];
+    for (const hname in this.map) {
+      if ({}.hasOwnProperty.call(this.map, hname)) {
+        yield [this.map[hname].name, this.map[hname].value];
       }
     }
   }
