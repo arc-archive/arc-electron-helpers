@@ -1,6 +1,6 @@
 {
   "name": "@advanced-rest-client/arc-electron-helpers",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "ARC electron helper libraries",
   "main": "main.js",
   "module": "index.js",
@@ -13,19 +13,29 @@
     "esm": "^3.2.25"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
+    "@types/chai": "^4.2.11",
+    "@types/chance": "^1.1.0",
+    "@types/mocha": "^8.0.0",
     "chai": "^4.2.0",
-    "electron-mocha": "^8.1.2",
-    "mocha": "^6.2.2",
-    "@advanced-rest-client/eslint-config": "^1.1.4",
-    "@advanced-rest-client/prettier-config": "^0.1.0",
-    "eslint": "^6.8.0",
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
-    "lint-staged": "^9.5.0",
-    "husky": "^3.1.0"
+    "electron": "^9.1.1",
+    "electron-mocha": "^9.0.1",
+    "eslint": "^7.2.0",
+    "eslint-config-esnext": "^4.1.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-no-only-tests": "^2.4.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "mocha": "^8.0.1",
+    "nyc": "^15.1.0",
+    "typescript": "^3.9.5"
   },
   "peerDependencies": {
-    "electron": "^7.1.7"
+    "electron": "^9.1.1"
   },
   "repository": {
     "type": "git",
@@ -37,8 +47,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ]
   }
 }
